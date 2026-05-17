@@ -1,10 +1,47 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Globe } from "lucide-react";
 import type { SocialChannel } from "../models/SocialChannel";
 
 interface LinkCardProps {
   channel: SocialChannel;
   index: number;
+}
+
+function IconBox({ channel }: { channel: SocialChannel }) {
+  const boxClass =
+    "relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl shrink-0 overflow-hidden flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:rotate-2";
+
+  if (channel.iconImg) {
+    return (
+      <div
+        className={boxClass}
+        style={{ boxShadow: `0 6px 20px -4px ${channel.brandGlow}` }}
+      >
+        <img
+          src={channel.iconImg}
+          alt={channel.label}
+          width={64}
+          height={64}
+          loading="eager"
+          decoding="async"
+          className="w-full h-full object-contain p-1"
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className={`${boxClass} text-white`}
+      style={{
+        background: channel.brandGradient,
+        boxShadow: `0 6px 20px -4px ${channel.brandGlow}`,
+      }}
+    >
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-white/20 via-transparent to-black/10 pointer-events-none" />
+      <Globe size={28} className="relative z-10 drop-shadow-sm" />
+    </div>
+  );
 }
 
 export function LinkCard({ channel, index }: LinkCardProps) {
@@ -20,7 +57,7 @@ export function LinkCard({ channel, index }: LinkCardProps) {
       whileTap={{ scale: 0.97 }}
       whileHover={{ y: -3 }}
       style={{ touchAction: "pan-y" }}
-      className="relative flex items-center gap-4 w-full px-4 py-3.5 sm:px-5 sm:py-4 rounded-2xl
+      className="relative flex items-center gap-4 w-full px-4 py-3 sm:px-5 sm:py-4 rounded-2xl
                  bg-white/60 dark:bg-white/[0.04]
                  backdrop-blur-xl
                  border border-white/80 dark:border-white/[0.07]
@@ -30,27 +67,11 @@ export function LinkCard({ channel, index }: LinkCardProps) {
                  hover:shadow-[0_12px_40px_-8px_rgba(59,130,246,0.20)]
                  transition-all duration-300 group overflow-hidden"
     >
-      {/* shimmer sweep */}
+      {/* shimmer */}
       <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-[800ms] ease-in-out bg-gradient-to-r from-transparent via-white/30 dark:via-white/[0.03] to-transparent pointer-events-none" />
 
-      {/* icon gambar custom */}
-      <div
-        className="relative w-12 h-12 rounded-xl overflow-hidden shrink-0
-                   transition-all duration-300 group-hover:scale-110 group-hover:rotate-2"
-        style={{ boxShadow: `0 6px 20px -4px ${channel.brandGlow}` }}
-      >
-        <img
-          src={channel.iconImg}
-          alt={channel.label}
-          width={48}
-          height={48}
-          loading="eager"
-          decoding="async"
-          className="w-full h-full object-cover"
-        />
-      </div>
+      <IconBox channel={channel} />
 
-      {/* text */}
       <div className="relative flex-1 min-w-0 text-left">
         <p className="font-semibold text-[15px] sm:text-base text-zinc-800 dark:text-zinc-100 leading-tight">
           {channel.label}
@@ -60,15 +81,13 @@ export function LinkCard({ channel, index }: LinkCardProps) {
         </p>
       </div>
 
-      {/* arrow button */}
       <div className="relative shrink-0 w-8 h-8 rounded-full flex items-center justify-center
                       bg-zinc-100/80 dark:bg-white/[0.06]
                       group-hover:bg-blue-500
                       transition-all duration-300">
         <ArrowUpRight
           size={15}
-          className="text-zinc-400 dark:text-zinc-500
-                     group-hover:text-white
+          className="text-zinc-400 dark:text-zinc-500 group-hover:text-white
                      group-hover:-translate-y-0.5 group-hover:translate-x-0.5
                      transition-all duration-200"
         />
