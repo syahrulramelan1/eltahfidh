@@ -10,6 +10,6 @@ export interface SocialChannel {
   label: string;
   handle: string;
   url: string;
-  brandGradient: string;
+  iconImg: string;
   brandGlow: string;
 }

@@ -1,28 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import {
-  FaTiktok,
-  FaInstagram,
-  FaFacebookF,
-  FaYoutube,
-  FaEarthAsia,
-} from "react-icons/fa6";
-import type { SocialChannel, SocialChannelId } from "../models/SocialChannel";
-
-interface IconProps {
-  id: SocialChannelId;
-  size?: number;
-}
-
-function ChannelIcon({ id, size = 20 }: IconProps) {
-  switch (id) {
-    case "tiktok":    return <FaTiktok    size={size} />;
-    case "instagram": return <FaInstagram size={size} />;
-    case "facebook":  return <FaFacebookF size={size} />;
-    case "youtube":   return <FaYoutube   size={size} />;
-    case "website":   return <FaEarthAsia size={size} />;
-  }
-}
+import type { SocialChannel } from "../models/SocialChannel";
 
 interface LinkCardProps {
   channel: SocialChannel;
@@ -49,26 +27,27 @@ export function LinkCard({ channel, index }: LinkCardProps) {
                  shadow-[0_4px_24px_-8px_rgba(0,0,0,0.10)] dark:shadow-[0_4px_24px_-8px_rgba(0,0,0,0.5)]
                  hover:bg-white/90 dark:hover:bg-white/[0.07]
                  hover:border-blue-200/60 dark:hover:border-blue-500/20
-                 hover:shadow-[0_12px_40px_-8px_rgba(59,130,246,0.20)] dark:hover:shadow-[0_12px_40px_-8px_rgba(59,130,246,0.15)]
+                 hover:shadow-[0_12px_40px_-8px_rgba(59,130,246,0.20)]
                  transition-all duration-300 group overflow-hidden"
     >
       {/* shimmer sweep */}
       <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-[800ms] ease-in-out bg-gradient-to-r from-transparent via-white/30 dark:via-white/[0.03] to-transparent pointer-events-none" />
 
-      {/* gradient icon box with brand glow */}
+      {/* icon gambar custom */}
       <div
-        className="relative w-12 h-12 rounded-xl flex items-center justify-center text-white shrink-0
-                   transition-all duration-300 group-hover:scale-110 group-hover:rotate-3"
-        style={{
-          background: channel.brandGradient,
-          boxShadow: `0 6px 20px -4px ${channel.brandGlow}`,
-        }}
+        className="relative w-12 h-12 rounded-xl overflow-hidden shrink-0
+                   transition-all duration-300 group-hover:scale-110 group-hover:rotate-2"
+        style={{ boxShadow: `0 6px 20px -4px ${channel.brandGlow}` }}
       >
-        {/* top gloss */}
-        <div className="absolute inset-0 rounded-xl bg-gradient-to-b from-white/25 via-transparent to-black/10 pointer-events-none" />
-        <span className="relative z-10 drop-shadow-sm">
-          <ChannelIcon id={channel.id} />
-        </span>
+        <img
+          src={channel.iconImg}
+          alt={channel.label}
+          width={48}
+          height={48}
+          loading="eager"
+          decoding="async"
+          className="w-full h-full object-cover"
+        />
       </div>
 
       {/* text */}
@@ -81,9 +60,10 @@ export function LinkCard({ channel, index }: LinkCardProps) {
         </p>
       </div>
 
+      {/* arrow button */}
       <div className="relative shrink-0 w-8 h-8 rounded-full flex items-center justify-center
                       bg-zinc-100/80 dark:bg-white/[0.06]
-                      group-hover:bg-blue-500 dark:group-hover:bg-blue-500
+                      group-hover:bg-blue-500
                       transition-all duration-300">
         <ArrowUpRight
           size={15}
