@@ -10,5 +10,6 @@ export interface SocialChannel {
   label: string;
   handle: string;
   url: string;
-  brandHex: string;
+  brandGradient: string;
+  brandGlow: string;
 }

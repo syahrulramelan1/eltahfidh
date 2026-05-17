@@ -40,18 +40,14 @@ export function LinkTreePage() {
 
             {/* Logo / Brand */}
             <div className="flex justify-center mb-5">
-              <div className="px-5 py-3 rounded-2xl bg-transparent dark:bg-white/90 ring-1 ring-inset ring-transparent dark:ring-white/10 shadow-[0_8px_24px_-8px_rgba(59,130,246,0.20)]">
-                <img
-                  src="/logo-eltahfidh.png"
-                  alt="elTahfidh Indonesia"
-                  width={220}
-                  height={52}
-                  loading="eager"
-                  decoding="async"
-                  className="h-13 w-auto block"
-                  style={{ maxWidth: 220, height: 52 }}
-                />
-              </div>
+              <img
+                src="/logo-eltahfidh.png"
+                alt="elTahfidh Indonesia"
+                loading="eager"
+                decoding="async"
+                className="w-auto block h-20 sm:h-28"
+                style={{ maxWidth: 340 }}
+              />
             </div>
 
             <p className="text-sm text-zinc-500 dark:text-zinc-400">
